@@ -21,7 +21,7 @@ const statusOptions = [
 
 const IssueForm = ({ issue, initialData = {}, onSubmit, onSuccess, onCancel, loading: externalLoading, projectId, projects = [], members = [] }) => {
   const { user } = useAuth();
-  const data = issue || initialData;
+  const data = issue || initialData || {};
   const [form, setForm] = useState({
     title: data.title || '',
     description: data.description || '',

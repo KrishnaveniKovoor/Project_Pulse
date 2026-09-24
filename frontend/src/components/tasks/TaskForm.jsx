@@ -21,7 +21,7 @@ const statusOptions = [
 
 const TaskForm = ({ task, initialData = {}, onSubmit, onSuccess, onCancel, loading: externalLoading, projectId, projects = [], members = [], sprints = [] }) => {
   const { user } = useAuth();
-  const data = task || initialData;
+  const data = task || initialData || {};
   const [form, setForm] = useState({
     title: data.title || '',
     description: data.description || '',

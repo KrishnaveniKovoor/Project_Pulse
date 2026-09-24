@@ -10,24 +10,29 @@ const generateToken = (id) => {
 exports.register = async (req, res, next) => {
   try {
     const { name, email, password, orgName } = req.body;
+    if (!name || !email || !password) {
+      return errorResponse(res, 'Please provide name, email, and password', 400);
+    }
+
     let user = await User.findOne({ email });
     if (user) return errorResponse(res, 'User already exists', 400);
 
-    // The first account bootstraps the workspace. Subsequent users must be
-    // provisioned by its administrator; a submitted role is never trusted.
-    const adminExists = await User.exists({ role: 'org_admin' });
-    if (adminExists) {
-      return errorResponse(res, 'Account creation is disabled. Contact your organization administrator.', 403);
+    let organization = await Organization.findOne();
+    let role = 'developer';
+
+    if (!organization) {
+      organization = await Organization.create({ name: orgName || 'My Organization' });
+      role = 'org_admin';
     }
 
-    const organization = await Organization.create({ name: orgName || 'My Organization' });
-    
     user = await User.create({
-      name, email, password, role: 'org_admin', organization: organization._id
+      name, email, password, role, organization: organization._id
     });
-    
-    organization.owner = user._id;
-    organization.members.push({ user: user._id, role: 'org_admin' });
+
+    if (role === 'org_admin') {
+      organization.owner = user._id;
+    }
+    organization.members.push({ user: user._id, role });
     await organization.save();
 
     const token = generateToken(user._id);

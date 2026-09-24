@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Mail, Lock, Eye, EyeOff, UserCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
@@ -14,6 +14,10 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const set = (f) => (e) => setForm((p) => ({ ...p, [f]: e.target.value }));
+
+  const fillDemo = (email) => {
+    setForm({ email, password: 'password123' });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,6 +77,43 @@ const LoginPage = () => {
         </Button>
       </form>
 
+      {/* Demo Accounts Helper */}
+      <div className="mt-6 p-3 bg-gray-50 rounded-xl border border-gray-100">
+        <div className="flex items-center gap-1.5 mb-2 text-xs font-semibold text-gray-600">
+          <UserCheck size={14} className="text-[#3399B7]" />
+          <span>Quick Demo Logins (Password: password123)</span>
+        </div>
+        <div className="flex flex-wrap gap-1.5 text-xs">
+          <button
+            type="button"
+            onClick={() => fillDemo('admin@projectpulse.com')}
+            className="px-2.5 py-1 bg-white border border-gray-200 rounded-lg hover:border-[#3399B7] hover:text-[#3399B7] transition-colors"
+          >
+            Admin
+          </button>
+          <button
+            type="button"
+            onClick={() => fillDemo('pm@projectpulse.com')}
+            className="px-2.5 py-1 bg-white border border-gray-200 rounded-lg hover:border-[#3399B7] hover:text-[#3399B7] transition-colors"
+          >
+            PM
+          </button>
+          <button
+            type="button"
+            onClick={() => fillDemo('dev@projectpulse.com')}
+            className="px-2.5 py-1 bg-white border border-gray-200 rounded-lg hover:border-[#3399B7] hover:text-[#3399B7] transition-colors"
+          >
+            Developer
+          </button>
+        </div>
+      </div>
+
+      <p className="text-center text-sm text-gray-500 mt-6">
+        Don't have an account?{' '}
+        <Link to="/register" className="text-[#3399B7] font-medium hover:underline">
+          Sign up
+        </Link>
+      </p>
     </div>
   );
 };

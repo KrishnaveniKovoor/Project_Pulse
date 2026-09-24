@@ -21,7 +21,7 @@ const priorityOptions = [
 ];
 
 const ProjectForm = ({ project, initialData = {}, onSubmit, onSuccess, onCancel, loading: externalLoading }) => {
-  const data = project || initialData;
+  const data = project || initialData || {};
   const [form, setForm] = useState({
     name: data.name || '',
     description: data.description || '',

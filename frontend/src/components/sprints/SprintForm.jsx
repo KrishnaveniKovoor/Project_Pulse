@@ -11,7 +11,7 @@ const statusOptions = [
 ];
 
 const SprintForm = ({ sprint, initialData = {}, projectId, projects = [], onSubmit, onSuccess, onCancel, loading: externalLoading }) => {
-  const data = sprint || initialData;
+  const data = sprint || initialData || {};
   const [form, setForm] = useState({
     name: data.name || '',
     goal: data.goal || '',

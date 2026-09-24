@@ -4,11 +4,12 @@ import Button from '../common/Button';
 import { userService } from '../../services/userService';
 
 const TeamForm = ({ initialData = {}, onSubmit, onCancel, loading }) => {
+  const data = initialData || {};
   const [form, setForm] = useState({
     name: '',
     description: '',
     color: '#3399B7',
-    ...initialData,
+    ...data,
   });
   const [errors, setErrors] = useState({});
 

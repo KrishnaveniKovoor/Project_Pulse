@@ -175,7 +175,7 @@ const IssueDetailPage = () => {
                 {issue.labels.map((label, idx) => (
                   <span
                     key={idx}
-                    className="text-[10px] px-1.5 py-0.5 bg-[#F0FAFD] text-[#3399B7] rounded border border-[#A8D7E8] flex items-center gap-1"
+                    className="text-[10px] px-1.5 py-0.5 bg-[#F4FCFB] text-[#5289AD] rounded border border-[#ACBCBF] flex items-center gap-1"
                   >
                     <Tag className="w-3 h-3" />
                     {label}

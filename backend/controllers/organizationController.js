@@ -24,7 +24,7 @@ exports.addMember = async (req, res, next) => {
   try {
     const { userId, role } = req.body;
     const org = await Organization.findById(req.user.organization);
-    if (org.members.some(m => m.user.toString() === userId)) return errorResponse(res, 'User already in organization', 400);
+    if (org.members.some(m => m.user?.toString() === userId)) return errorResponse(res, 'User already in organization', 400);
     
     org.members.push({ user: userId, role: role || 'developer' });
     await org.save();
@@ -36,7 +36,7 @@ exports.addMember = async (req, res, next) => {
 exports.removeMember = async (req, res, next) => {
   try {
     const org = await Organization.findById(req.user.organization);
-    org.members = org.members.filter(m => m.user.toString() !== req.params.userId);
+    org.members = org.members.filter(m => m.user?.toString() !== req.params.userId);
     await org.save();
     await User.findByIdAndUpdate(req.params.userId, { organization: null, isActive: false });
     successResponse(res, org, 'Member removed');

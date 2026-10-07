@@ -37,7 +37,7 @@ const LoginPage = () => {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
       <div className="mb-6">
-        <h2 className="text-xl font-bold text-[#485257]">Sign in to your account</h2>
+        <h2 className="text-xl font-bold text-[#243C4C]">Sign in to your account</h2>
         <p className="text-sm text-gray-400 mt-1">Enter your credentials to continue</p>
       </div>
 
@@ -80,28 +80,28 @@ const LoginPage = () => {
       {/* Demo Accounts Helper */}
       <div className="mt-6 p-3 bg-gray-50 rounded-xl border border-gray-100">
         <div className="flex items-center gap-1.5 mb-2 text-xs font-semibold text-gray-600">
-          <UserCheck size={14} className="text-[#3399B7]" />
+          <UserCheck size={14} className="text-[#5289AD]" />
           <span>Quick Demo Logins (Password: password123)</span>
         </div>
         <div className="flex flex-wrap gap-1.5 text-xs">
           <button
             type="button"
             onClick={() => fillDemo('admin@projectpulse.com')}
-            className="px-2.5 py-1 bg-white border border-gray-200 rounded-lg hover:border-[#3399B7] hover:text-[#3399B7] transition-colors"
+            className="px-2.5 py-1 bg-white border border-gray-200 rounded-lg hover:border-[#5289AD] hover:text-[#5289AD] transition-colors"
           >
             Admin
           </button>
           <button
             type="button"
             onClick={() => fillDemo('pm@projectpulse.com')}
-            className="px-2.5 py-1 bg-white border border-gray-200 rounded-lg hover:border-[#3399B7] hover:text-[#3399B7] transition-colors"
+            className="px-2.5 py-1 bg-white border border-gray-200 rounded-lg hover:border-[#5289AD] hover:text-[#5289AD] transition-colors"
           >
             PM
           </button>
           <button
             type="button"
             onClick={() => fillDemo('dev@projectpulse.com')}
-            className="px-2.5 py-1 bg-white border border-gray-200 rounded-lg hover:border-[#3399B7] hover:text-[#3399B7] transition-colors"
+            className="px-2.5 py-1 bg-white border border-gray-200 rounded-lg hover:border-[#5289AD] hover:text-[#5289AD] transition-colors"
           >
             Developer
           </button>

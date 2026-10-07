@@ -56,7 +56,7 @@ export const getStatusColor = (status) => {
     done: 'bg-green-100 text-green-700',
     // Project statuses
     planning: 'bg-gray-100 text-gray-600',
-    active: 'bg-[#A8D7E8] text-[#2980a0]',
+    active: 'bg-[#ACBCBF] text-[#3d6f91]',
     on_hold: 'bg-yellow-100 text-yellow-700',
     completed: 'bg-green-100 text-green-700',
     archived: 'bg-gray-100 text-gray-500',

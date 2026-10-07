@@ -43,7 +43,7 @@ exports.addMember = async (req, res, next) => {
   try {
     const team = await Team.findById(req.params.id);
     if (!team) return errorResponse(res, 'Team not found', 404);
-    if (team.members.some(m => m.user.toString() === req.body.userId)) return errorResponse(res, 'User already in team', 400);
+    if (team.members.some(m => m.user?.toString() === req.body.userId)) return errorResponse(res, 'User already in team', 400);
     
     team.members.push({ user: req.body.userId, role: req.body.role || 'member' });
     await team.save();
@@ -55,7 +55,7 @@ exports.removeMember = async (req, res, next) => {
   try {
     const team = await Team.findById(req.params.id);
     if (!team) return errorResponse(res, 'Team not found', 404);
-    team.members = team.members.filter(m => m.user.toString() !== req.params.userId);
+    team.members = team.members.filter(m => m.user?.toString() !== req.params.userId);
     await team.save();
     successResponse(res, team, 'Member removed');
   } catch (err) { next(err); }

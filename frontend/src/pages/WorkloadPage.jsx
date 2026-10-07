@@ -118,7 +118,7 @@ const WorkloadPage = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="page-title flex items-center gap-2">
-            <BarChart2 className="text-[#3399B7]" size={28} />
+            <BarChart2 className="text-[#5289AD]" size={28} />
             Team Workload
           </h1>
           <p className="text-muted mt-1">Overview of task distribution across the team</p>
@@ -152,7 +152,7 @@ const WorkloadPage = () => {
         <EmptyState
           icon={BarChart2}
           title="No workload data"
-          message="There are no users or tasks to display workload for."
+          description="There are no users or tasks to display workload for."
         />
       ) : (
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
@@ -160,7 +160,7 @@ const WorkloadPage = () => {
             <div key={user._id || user.id} className="card p-5">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <Avatar user={user} size="lg" />
+                  <Avatar name={user.name} src={user.avatar} size="lg" />
                   <div>
                     <h3 className="font-semibold text-gray-900">{user.name || 'Unknown User'}</h3>
                     <p className="text-sm text-muted">{user.role || 'Member'}</p>

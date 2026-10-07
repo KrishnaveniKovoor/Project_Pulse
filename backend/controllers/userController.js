@@ -40,13 +40,6 @@ exports.updateUser = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-exports.deleteUser = async (req, res, next) => {
-  try {
-    const user = await User.findByIdAndUpdate(req.params.id, { isActive: false }, { new: true });
-    if (!user) return errorResponse(res, 'User not found', 404);
-    successResponse(res, null, 'User deactivated');
-  } catch (err) { next(err); }
-};
 
 exports.getUserActivity = async (req, res, next) => {
   try {

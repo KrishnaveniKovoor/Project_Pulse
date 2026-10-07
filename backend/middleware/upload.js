@@ -10,7 +10,7 @@ if (!fs.existsSync(uploadDir)) {
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, uploadDir);
   },
   filename(req, file, cb) {
     cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
@@ -25,7 +25,7 @@ const checkFileType = (file, cb) => {
   if (extname && mimetype) {
     return cb(null, true);
   } else {
-    cb('Error: Invalid file type!');
+    cb(new Error('Invalid file type!'));
   }
 };
 

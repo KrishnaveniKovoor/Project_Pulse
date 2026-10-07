@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// Arctic Reflection Palette
 export default {
   content: [
     "./index.html",
@@ -7,10 +8,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#3399B7',
-        sidebar: '#485257',
-        lightblue: '#A8D7E8',
-        bglight: '#F0FAFD',
+        // Arctic Reflection palette
+        'arctic-dark':      '#243C4C', // dark sidebar / navbar / headings
+        'arctic-primary':   '#5289AD', // primary buttons, links, active states
+        'arctic-secondary': '#698696', // secondary elements
+        'arctic-muted':     '#ACBCBF', // borders, muted elements
+        'arctic-bg':        '#F4FCFB', // main background
+
+        // Aliases for backward compat
+        primary:   '#5289AD',
+        sidebar:   '#243C4C',
+        lightblue: '#ACBCBF',
+        bglight:   '#F4FCFB',
       }
     },
   },

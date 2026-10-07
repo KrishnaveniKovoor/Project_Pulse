@@ -31,10 +31,10 @@ const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F0FAFD]">
+      <div className="min-h-screen flex items-center justify-center bg-[#F4FCFB]">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-4 border-[#3399B7] border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm text-gray-500 font-medium">Loading ProjectPulse…</p>
+          <div className="w-10 h-10 border-4 border-[#5289AD] border-t-transparent rounded-full animate-spin" />
+          <p className="text-sm font-medium text-[#698696]">Loading ProjectPulse…</p>
         </div>
       </div>
     );
@@ -55,7 +55,7 @@ function App() {
         position="top-right"
         toastOptions={{
           style: { fontFamily: 'Inter, sans-serif', fontSize: '14px' },
-          success: { iconTheme: { primary: '#3399B7', secondary: '#fff' } },
+          success: { iconTheme: { primary: '#5289AD', secondary: '#F4FCFB' } },
         }}
       />
       <Routes>

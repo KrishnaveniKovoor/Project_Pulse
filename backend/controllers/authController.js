@@ -9,7 +9,7 @@ const generateToken = (id) => {
 
 exports.register = async (req, res, next) => {
   try {
-    const { name, email, password, orgName } = req.body;
+    const { name, email, password, orgName, role: requestedRole } = req.body;
     if (!name || !email || !password) {
       return errorResponse(res, 'Please provide name, email, and password', 400);
     }
@@ -21,8 +21,15 @@ exports.register = async (req, res, next) => {
     let role = 'developer';
 
     if (!organization) {
+      // First user ever — becomes org_admin automatically
       organization = await Organization.create({ name: orgName || 'My Organization' });
       role = 'org_admin';
+    } else {
+      // Subsequent users can choose from non-admin roles
+      const allowedRoles = ['project_manager', 'team_lead', 'developer', 'stakeholder'];
+      if (requestedRole && allowedRoles.includes(requestedRole)) {
+        role = requestedRole;
+      }
     }
 
     user = await User.create({
@@ -36,6 +43,7 @@ exports.register = async (req, res, next) => {
     await organization.save();
 
     const token = generateToken(user._id);
+    user.password = undefined;
     res.status(201).json({ success: true, data: { token, user } });
   } catch (err) { next(err); }
 };
@@ -81,6 +89,7 @@ exports.updateProfile = async (req, res, next) => {
 
 exports.changePassword = async (req, res, next) => {
   try {
+    if (!req.body.oldPassword || !req.body.newPassword) return errorResponse(res, 'Please provide old and new password', 400);
     const user = await User.findById(req.user.id).select('+password');
     if (!(await user.matchPassword(req.body.oldPassword))) return errorResponse(res, 'Incorrect current password', 401);
     

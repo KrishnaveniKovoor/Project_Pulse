@@ -15,10 +15,10 @@ exports.protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id).populate('organization');
+    req.user = await User.findById(decoded.id);
     
-    if (!req.user) {
-      return errorResponse(res, 'User no longer exists', 401);
+    if (!req.user || !req.user.isActive) {
+      return res.status(401).json({ success: false, message: 'Not authorized' });
     }
     
     next();

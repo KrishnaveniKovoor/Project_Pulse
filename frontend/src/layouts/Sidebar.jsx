@@ -42,7 +42,7 @@ const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
       <aside
         className={`
           fixed top-0 left-0 h-full z-40 flex flex-col transition-all duration-300
-          bg-[#485257] shadow-xl
+          bg-[#243C4C] shadow-xl
           ${collapsed ? 'w-16' : 'w-64'}
           ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
@@ -51,14 +51,14 @@ const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
         <div className="flex items-center justify-between px-4 h-16 border-b border-white/10 flex-shrink-0">
           {!collapsed && (
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 bg-[#3399B7] rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-7 h-7 bg-[#5289AD] rounded-lg flex items-center justify-center flex-shrink-0">
                 <Target size={16} className="text-white" />
               </div>
               <span className="font-bold text-white text-base tracking-tight">ProjectPulse</span>
             </div>
           )}
           {collapsed && (
-            <div className="w-7 h-7 bg-[#3399B7] rounded-lg flex items-center justify-center mx-auto">
+            <div className="w-7 h-7 bg-[#5289AD] rounded-lg flex items-center justify-center mx-auto">
               <Target size={16} className="text-white" />
             </div>
           )}

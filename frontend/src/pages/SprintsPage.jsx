@@ -160,8 +160,7 @@ const SprintsPage = () => {
           icon={Zap}
           title="No sprints found"
           description={selectedProjectId ? "This project doesn't have any sprints yet." : "You haven't created any sprints yet."}
-          actionLabel="Create Sprint"
-          onAction={handleCreateClick}
+          action={{ label: 'Create Sprint', onClick: handleCreateClick }}
         />
       )}
 

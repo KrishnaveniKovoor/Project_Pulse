@@ -174,7 +174,7 @@ const TaskDetailPage = () => {
             <div className="space-y-4 mb-6 max-h-[400px] overflow-y-auto">
               {comments.map((comment) => (
                 <div key={comment._id} className="flex gap-3 bg-gray-50 p-3 rounded-lg">
-                  <Avatar user={comment.author} size="sm" />
+                  <Avatar name={comment.author?.name} src={comment.author?.avatar} size="sm" />
                   <div className="flex-1">
                     <div className="flex justify-between items-center mb-1">
                       <span className="font-medium text-sm text-gray-900">
@@ -194,7 +194,7 @@ const TaskDetailPage = () => {
             </div>
 
             <form onSubmit={handleAddComment} className="flex gap-2">
-              <Avatar user={user} size="sm" />
+              <Avatar name={user?.name} src={user?.avatar} size="sm" />
               <div className="flex-1">
                 <textarea
                   className="form-input w-full min-h-[80px] resize-y"
@@ -240,7 +240,7 @@ const TaskDetailPage = () => {
 
               <div>
                 <label className="text-xs text-muted font-medium uppercase tracking-wider block mb-1">Priority</label>
-                <Badge color={getPriorityColor(task.priority)}>{task.priority}</Badge>
+                <Badge className={getPriorityColor(task.priority)}>{task.priority}</Badge>
               </div>
 
               <div>
@@ -248,7 +248,7 @@ const TaskDetailPage = () => {
                 <div className="flex items-center gap-2">
                   {task.assignee ? (
                     <>
-                      <Avatar user={task.assignee} size="xs" />
+                      <Avatar name={task.assignee.name} src={task.assignee.avatar} size="xs" />
                       <span className="text-sm font-medium">{task.assignee.name}</span>
                     </>
                   ) : (
@@ -262,7 +262,7 @@ const TaskDetailPage = () => {
                 <div className="flex items-center gap-2">
                   {task.reporter ? (
                     <>
-                      <Avatar user={task.reporter} size="xs" />
+                      <Avatar name={task.reporter.name} src={task.reporter.avatar} size="xs" />
                       <span className="text-sm font-medium">{task.reporter.name}</span>
                     </>
                   ) : (

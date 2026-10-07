@@ -24,7 +24,7 @@ const StatCard = ({ icon: Icon, label, value, sub, color, onClick }) => (
       <Icon size={20} className="text-white" />
     </div>
     <div className="min-w-0">
-      <p className="text-2xl font-bold text-[#485257]">{value}</p>
+      <p className="text-2xl font-bold text-[#243C4C]">{value}</p>
       <p className="text-sm font-medium text-gray-700 mt-0.5">{label}</p>
       {sub && <p className="text-xs text-gray-400 mt-0.5">{sub}</p>}
     </div>
@@ -94,7 +94,7 @@ const DashboardPage = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           icon={FolderKanban} label="Active Projects" value={activeProjects}
-          sub={`${projects.length} total`} color="bg-[#3399B7]"
+          sub={`${projects.length} total`} color="bg-[#5289AD]"
           onClick={() => navigate('/projects')}
         />
         <StatCard
@@ -119,9 +119,9 @@ const DashboardPage = () => {
         <div className="lg:col-span-2 card p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="section-title flex items-center gap-2">
-              <CheckSquare size={18} className="text-[#3399B7]" /> My Active Tasks
+              <CheckSquare size={18} className="text-[#5289AD]" /> My Active Tasks
             </h2>
-            <button onClick={() => navigate('/tasks')} className="text-sm text-[#3399B7] hover:underline flex items-center gap-1">
+            <button onClick={() => navigate('/tasks')} className="text-sm text-[#5289AD] hover:underline flex items-center gap-1">
               View all <ArrowRight size={14} />
             </button>
           </div>
@@ -136,10 +136,10 @@ const DashboardPage = () => {
                 <div
                   key={task._id}
                   onClick={() => navigate(`/tasks/${task._id}`)}
-                  className="flex items-start justify-between p-3 rounded-lg border border-gray-100 hover:border-[#A8D7E8] hover:bg-[#F0FAFD] cursor-pointer transition-all group"
+                  className="flex items-start justify-between p-3 rounded-lg border border-gray-100 hover:border-[#ACBCBF] hover:bg-[#F4FCFB] cursor-pointer transition-all group"
                 >
                   <div className="flex-1 min-w-0 mr-3">
-                    <p className="text-sm font-medium text-[#485257] truncate group-hover:text-[#3399B7]">{task.title}</p>
+                    <p className="text-sm font-medium text-[#243C4C] truncate group-hover:text-[#5289AD]">{task.title}</p>
                     <div className="flex items-center gap-2 mt-1">
                       <Badge className={getStatusColor(task.status)}>{getStatusLabel(task.status)}</Badge>
                       {task.project?.name && (

@@ -123,7 +123,7 @@ const TasksPage = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="page-title flex items-center gap-2">
-            <CheckSquare size={24} className="text-[#3399B7]" /> Tasks
+            <CheckSquare size={24} className="text-[#5289AD]" /> Tasks
           </h1>
           <p className="text-muted mt-1">{tasks.length} task{tasks.length !== 1 ? 's' : ''}</p>
         </div>
@@ -143,7 +143,12 @@ const TasksPage = () => {
       {/* Filters panel */}
       {showFilters && (
         <div className="card p-4 animate-slide-in">
-          <TaskFilters filters={filters} onFiltersChange={setFilters} projects={projects} />
+          <TaskFilters
+            filters={filters}
+            onChange={(key, value) => setFilters(prev => ({ ...prev, [key]: value }))}
+            onClear={() => setFilters({ search: '', status: '', priority: '', assignee: '', project: '' })}
+            projects={projects}
+          />
         </div>
       )}
 

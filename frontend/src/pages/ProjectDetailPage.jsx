@@ -188,10 +188,10 @@ const ProjectDetailPage = () => {
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <h1 className="text-3xl font-bold text-sidebar">{project.name}</h1>
-                <Badge variant={getStatusColor(project.status)}>
+                <Badge className={getStatusColor(project.status)}>
                   {getStatusLabel(project.status)}
                 </Badge>
-                <Badge variant={getPriorityColor(project.priority)}>
+                <Badge className={getPriorityColor(project.priority)}>
                   {project.priority || 'Medium'} Priority
                 </Badge>
               </div>
@@ -271,7 +271,7 @@ const ProjectDetailPage = () => {
                     <span className="text-sidebar font-medium">Overall Completion</span>
                     <span className="text-primary font-bold">{progress}%</span>
                   </div>
-                  <ProgressBar progress={progress} className="h-3" color="primary" />
+                  <ProgressBar value={progress} className="h-3" color="#3399B7" />
                   <div className="flex justify-between text-sm text-muted pt-2 border-t border-gray-100">
                     <span>{completedTasks} completed tasks</span>
                     <span>{totalTasks} total tasks</span>
@@ -301,7 +301,7 @@ const ProjectDetailPage = () => {
                           <p className="text-sidebar">
                             <span className="font-medium">{activity.user?.name}</span> {activity.action}
                           </p>
-                          <p className="text-xs text-muted mt-1">{formatDate(activity.createdAt, true)}</p>
+                          <p className="text-xs text-muted mt-1">{formatDate(activity.createdAt)}</p>
                         </div>
                       </div>
                     ))}
@@ -437,8 +437,8 @@ const ProjectDetailPage = () => {
               message={`Are you sure you want to delete "${project.name}"? This action cannot be undone and will delete all associated tasks and sprints.`}
               confirmText="Yes, Delete Project"
               cancelText="Cancel"
-              type="danger"
-              isLoading={isDeleting}
+              variant="danger"
+              loading={isDeleting}
             />
           </div>
         )}

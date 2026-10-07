@@ -64,7 +64,8 @@ exports.deleteIssue = async (req, res, next) => {
 
 exports.assignIssue = async (req, res, next) => {
   try {
-    const assignee = req.body.assignee !== undefined ? req.body.assignee : req.body.assigneeId;
+    let assignee = req.body.assignee !== undefined ? req.body.assignee : req.body.assigneeId;
+    if (assignee === '') assignee = null;
     const issue = await Issue.findByIdAndUpdate(req.params.id, { assignee }, { new: true });
     if (!issue) return errorResponse(res, 'Issue not found', 404);
     if (issue.assignee) {

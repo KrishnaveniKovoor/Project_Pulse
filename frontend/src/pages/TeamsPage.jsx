@@ -101,7 +101,7 @@ const TeamsPage = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="page-title flex items-center gap-2">
-            <Users className="text-[#3399B7]" size={28} />
+            <Users className="text-[#5289AD]" size={28} />
             Teams
           </h1>
           <p className="text-muted mt-1">Manage your organization's teams and members</p>

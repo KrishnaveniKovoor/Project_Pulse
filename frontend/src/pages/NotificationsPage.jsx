@@ -16,13 +16,13 @@ const NotificationsPage = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
   
-  const { fetchUnreadCount } = useNotifications() || { fetchUnreadCount: () => {} };
+  const { fetchNotifications: refreshContext } = useNotifications();
 
   const loadNotifications = async (pageNumber = 1, append = false) => {
     try {
       setLoading(true);
       const response = await notificationService.getNotifications({ page: pageNumber, limit: 20 });
-      const newNotifications = Array.isArray(response) ? response : (response.data || []);
+      const newNotifications = response.data?.data || [];
       
       if (append) {
         setNotifications(prev => [...prev, ...newNotifications]);
@@ -30,7 +30,7 @@ const NotificationsPage = () => {
         setNotifications(newNotifications);
       }
       
-      setHasMore(response.pagination?.hasMore || false);
+      setHasMore(response.data?.total > pageNumber * 20);
       setPage(pageNumber);
     } catch (error) {
       toast.error('Failed to load notifications');
@@ -47,9 +47,9 @@ const NotificationsPage = () => {
     try {
       await notificationService.markAsRead(id);
       setNotifications(prev => prev.map(notif => 
-        (notif._id || notif.id) === id ? { ...notif, read: true } : notif
+        (notif._id || notif.id) === id ? { ...notif, isRead: true } : notif
       ));
-      fetchUnreadCount();
+      refreshContext();
     } catch (error) {
       toast.error('Failed to mark notification as read');
     }
@@ -58,8 +58,8 @@ const NotificationsPage = () => {
   const handleMarkAllAsRead = async () => {
     try {
       await notificationService.markAllAsRead();
-      setNotifications(prev => prev.map(notif => ({ ...notif, read: true })));
-      fetchUnreadCount();
+      setNotifications(prev => prev.map(notif => ({ ...notif, isRead: true })));
+      refreshContext();
       toast.success('All notifications marked as read');
     } catch (error) {
       toast.error('Failed to mark all as read');
@@ -70,7 +70,7 @@ const NotificationsPage = () => {
     try {
       await notificationService.deleteNotification(id);
       setNotifications(prev => prev.filter(notif => (notif._id || notif.id) !== id));
-      fetchUnreadCount();
+      refreshContext();
       toast.success('Notification deleted');
     } catch (error) {
       toast.error('Failed to delete notification');
@@ -78,7 +78,7 @@ const NotificationsPage = () => {
   };
 
   const filteredNotifications = notifications.filter(n => {
-    if (filter === 'unread') return !n.read;
+    if (filter === 'unread') return !n.isRead;
     return true;
   });
 
@@ -87,13 +87,13 @@ const NotificationsPage = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="page-title flex items-center gap-2">
-            <Bell className="text-[#3399B7]" size={28} />
+            <Bell className="text-[#5289AD]" size={28} />
             Notifications
           </h1>
           <p className="text-muted mt-1">Stay updated on your projects and tasks</p>
         </div>
         <div className="flex gap-2">
-          {filteredNotifications.some(n => !n.read) && (
+          {filteredNotifications.some(n => !n.isRead) && (
             <Button variant="outline" onClick={handleMarkAllAsRead} className="flex items-center gap-2">
               <CheckCheck size={16} />
               Mark all as read
@@ -115,9 +115,9 @@ const NotificationsPage = () => {
             onClick={() => setFilter('unread')}
           >
             Unread
-            {notifications.filter(n => !n.read).length > 0 && (
+            {notifications.filter(n => !n.isRead).length > 0 && (
               <span className="bg-[#3399B7] text-white text-xs px-2 py-0.5 rounded-full">
-                {notifications.filter(n => !n.read).length}
+                {notifications.filter(n => !n.isRead).length}
               </span>
             )}
           </button>
@@ -133,7 +133,7 @@ const NotificationsPage = () => {
               <EmptyState
                 icon={Bell}
                 title={filter === 'unread' ? "No unread notifications" : "No notifications"}
-                message="You're all caught up!"
+                description="You're all caught up!"
               />
             </div>
           ) : (

@@ -229,12 +229,12 @@ const IssuesPage = () => {
                       </div>
                     </td>
                     <td className="p-4">
-                      <Badge color={getStatusColor(issue.status)}>
+                      <Badge className={getStatusColor(issue.status)}>
                         {getStatusDisplay(issue.status)}
                       </Badge>
                     </td>
                     <td className="p-4">
-                      <Badge color={getPriorityColor(issue.priority)}>
+                      <Badge className={getPriorityColor(issue.priority)}>
                         {issue.priority}
                       </Badge>
                     </td>
@@ -244,7 +244,7 @@ const IssuesPage = () => {
                     <td className="p-4">
                       {issue.assignee ? (
                         <div className="flex items-center gap-2">
-                          <Avatar user={issue.assignee} size="xs" />
+                          <Avatar name={issue.assignee.name} src={issue.assignee.avatar} size="xs" />
                           <span className="text-sm text-gray-700">{issue.assignee.name}</span>
                         </div>
                       ) : (
@@ -271,8 +271,7 @@ const IssuesPage = () => {
             icon={AlertCircle}
             title="No issues found"
             description="There are no issues matching your criteria."
-            actionLabel="Report Issue"
-            onAction={handleCreateClick}
+            action={{ label: 'Report Issue', onClick: handleCreateClick }}
           />
         )}
       </div>

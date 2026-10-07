@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const dns = require('dns');
 const User = require('../models/User');
 const Organization = require('../models/Organization');
 const Team = require('../models/Team');
@@ -16,6 +17,10 @@ const Attachment = require('../models/Attachment');
 const path = require('path');
 
 dotenv.config({ path: path.join(__dirname, '../.env') });
+
+// Fix DNS resolution for MongoDB Atlas SRV lookup
+const dnsServers = process.env.DNS_SERVERS?.split(',').map((s) => s.trim()).filter(Boolean);
+if (dnsServers?.length) dns.setServers(dnsServers);
 
 const seedPassword = process.env.SEED_PASSWORD || 'password123';
 

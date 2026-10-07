@@ -30,13 +30,15 @@ exports.createMilestone = async (req, res, next) => {
 exports.updateMilestone = async (req, res, next) => {
   try {
     const milestone = await Milestone.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    if (!milestone) return errorResponse(res, 'Milestone not found', 404);
     successResponse(res, milestone);
   } catch (err) { next(err); }
 };
 
 exports.deleteMilestone = async (req, res, next) => {
   try {
-    await Milestone.findByIdAndDelete(req.params.id);
+    const milestone = await Milestone.findByIdAndDelete(req.params.id);
+    if (!milestone) return errorResponse(res, 'Milestone not found', 404);
     successResponse(res, null, 'Milestone deleted');
   } catch (err) { next(err); }
 };

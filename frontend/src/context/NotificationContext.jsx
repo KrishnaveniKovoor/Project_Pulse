@@ -64,7 +64,7 @@ export const NotificationProvider = ({ children }) => {
   }, [isAuthenticated, fetchUnreadCount]);
 
   return (
-    <NotificationContext.Provider value={{ notifications, unreadCount, loading, fetchNotifications, markRead, markAllRead }}>
+    <NotificationContext.Provider value={{ notifications, unreadCount, loading, fetchNotifications, fetchUnreadCount, markRead, markAllRead }}>
       {children}
     </NotificationContext.Provider>
   );

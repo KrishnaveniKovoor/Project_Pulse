@@ -17,7 +17,7 @@ const MetricCard = ({ icon: Icon, label, value, sub, color }) => (
         <Icon size={18} className="text-white" />
       </div>
       <div>
-        <p className="text-2xl font-bold text-[#485257]">{value}</p>
+        <p className="text-2xl font-bold text-[#243C4C]">{value}</p>
         <p className="text-sm text-gray-600 font-medium">{label}</p>
         {sub && <p className="text-xs text-gray-400 mt-0.5">{sub}</p>}
       </div>

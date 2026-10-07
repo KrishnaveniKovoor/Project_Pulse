@@ -103,7 +103,8 @@ exports.getKanbanTasks = async (req, res, next) => {
 
 exports.assignTask = async (req, res, next) => {
   try {
-    const assignee = req.body.assignee !== undefined ? req.body.assignee : req.body.assigneeId;
+    let assignee = req.body.assignee !== undefined ? req.body.assignee : req.body.assigneeId;
+    if (assignee === '') assignee = null;
     const task = await Task.findByIdAndUpdate(req.params.id, { assignee }, { new: true });
     if (!task) return errorResponse(res, 'Task not found', 404);
     if (task.assignee) {

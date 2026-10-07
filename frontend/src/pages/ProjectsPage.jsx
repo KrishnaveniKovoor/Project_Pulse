@@ -103,7 +103,7 @@ const ProjectsPage = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="page-title flex items-center gap-2">
-            <FolderKanban size={24} className="text-[#3399B7]" /> Projects
+            <FolderKanban size={24} className="text-[#5289AD]" /> Projects
           </h1>
           <p className="text-muted mt-1">{projects.length} project{projects.length !== 1 ? 's' : ''} found</p>
         </div>

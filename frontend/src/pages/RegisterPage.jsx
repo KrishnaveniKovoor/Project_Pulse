@@ -3,10 +3,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
+import Select from '../components/common/Select';
 import toast from 'react-hot-toast';
 
+const roleOptions = [
+  { value: 'developer', label: 'Developer' },
+  { value: 'project_manager', label: 'Project Manager' },
+  { value: 'team_lead', label: 'Team Lead' },
+  { value: 'stakeholder', label: 'Stakeholder' },
+];
+
 const RegisterPage = () => {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'developer' });
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
@@ -32,7 +40,7 @@ const RegisterPage = () => {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
       <div className="mb-6">
-        <h2 className="text-xl font-bold text-[#485257]">Create your account</h2>
+        <h2 className="text-xl font-bold text-[#243C4C]">Create your account</h2>
         <p className="text-sm text-gray-400 mt-1">Join ProjectPulse and start collaborating</p>
       </div>
 
@@ -40,12 +48,20 @@ const RegisterPage = () => {
         <Input label="Full Name" placeholder="John Doe" value={form.name} onChange={set('name')} required />
         <Input label="Email Address" type="email" placeholder="you@example.com" value={form.email} onChange={set('email')} required />
         <Input label="Password" type="password" placeholder="Min. 6 characters" value={form.password} onChange={set('password')} required />
+        <div>
+          <label className="block text-sm font-medium text-[#485257] mb-1">Role</label>
+          <Select
+            options={roleOptions}
+            value={form.role}
+            onChange={set('role')}
+          />
+        </div>
         <Button type="submit" fullWidth loading={loading} size="lg">Create Account</Button>
       </form>
 
       <p className="text-center text-sm text-gray-500 mt-6">
         Already have an account?{' '}
-        <Link to="/login" className="text-[#3399B7] font-medium hover:underline">Sign in</Link>
+        <Link to="/login" className="text-[#5289AD] font-medium hover:underline">Sign in</Link>
       </p>
     </div>
   );

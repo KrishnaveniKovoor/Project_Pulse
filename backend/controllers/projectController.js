@@ -102,8 +102,9 @@ exports.addMember = async (req, res, next) => {
 exports.removeMember = async (req, res, next) => {
   try {
     const project = await Project.findById(req.params.id);
+    if (!project) return errorResponse(res, 'Project not found', 404);
     await ProjectMember.findOneAndDelete({ project: project._id, user: req.params.userId });
-    project.members = project.members.filter(m => m.toString() !== req.params.userId);
+    project.members = project.members.filter(m => m?.toString() !== req.params.userId);
     await project.save();
     successResponse(res, null, 'Member removed');
   } catch (err) { next(err); }

@@ -69,7 +69,7 @@ exports.getOverdueReport = async (req, res, next) => {
     const overdueTasks = await Task.find({ 
       isArchived: false, 
       status: { $ne: 'done' },
-      dueDate: { $lt: new Date() }
+      dueDate: { $ne: null, $lt: new Date() }
     }).populate('project', 'name').populate('assignee', 'name');
     
     successResponse(res, overdueTasks);

@@ -131,6 +131,61 @@ The frontend runs by default on:
 http://localhost:5173
 ```
 
+## Deployment Guide & Troubleshooting
+
+### Why Registration Fails on Deployment (and How to Fix It)
+
+1. **Missing or Incorrect `VITE_API_URL` on the Frontend:**
+   - The React frontend needs to know where your backend API is hosted.
+   - In your frontend host (e.g. Vercel / Netlify dashboard), add an Environment Variable:
+     ```env
+     VITE_API_URL=https://your-backend-service.onrender.com/api
+     ```
+   - *Note:* Vite embeds environment variables at **build time**. After adding or modifying `VITE_API_URL`, you must trigger a **Redeploy / Rebuild** on Vercel/Netlify.
+   - If `VITE_API_URL` is omitted, the frontend defaults to `/api`, sending requests to the frontend static host (which returns 404 or index.html instead of communicating with the backend).
+
+2. **CORS Restrictions on Backend:**
+   - The backend checks `CLIENT_URL` to allow requests from your frontend domain.
+   - In your backend host (e.g. Render / Railway dashboard), set:
+     ```env
+     CLIENT_URL=https://your-frontend.vercel.app
+     ```
+   - The backend also automatically allows `*.vercel.app`, `*.netlify.app`, `*.onrender.com`, and localhost.
+
+3. **MongoDB Atlas Network Access (IP Whitelist):**
+   - Cloud hosts (Render, Railway, etc.) use dynamic outbound IPs.
+   - In your MongoDB Atlas dashboard:
+     - Go to **Network Access** -> **Add IP Address**.
+     - Choose **Allow Access from Anywhere** (`0.0.0.0/0`).
+     - Without this, the backend cannot connect to MongoDB and registration will fail.
+
+4. **Missing Backend Environment Variables:**
+   - In Render / Railway / Heroku, make sure the following variables are set:
+     - `MONGODB_URI`: your full MongoDB connection string (e.g. `mongodb+srv://...`)
+     - `JWT_SECRET`: your secret key for token signing (e.g. a 32+ character random string)
+     - `CLIENT_URL`: your frontend deployment URL
+     - `NODE_ENV`: `production`
+
+5. **SPA Page Refresh & Direct Navigation (404 Not Found):**
+   - Single Page Applications require rewrite rules so that paths like `/register`, `/login`, and `/dashboard` load `index.html`.
+   - `frontend/vercel.json` and `frontend/public/_redirects` are included to handle rewrites on Vercel and Netlify.
+
+### Quick Deployment Setup
+
+#### Backend (e.g. Render / Railway)
+- **Root Directory:** `backend`
+- **Build Command:** `npm install`
+- **Start Command:** `npm start`
+- **Health Check Endpoint:** `/api/health` or `/`
+- **Required Environment Variables:** `MONGODB_URI`, `JWT_SECRET`, `CLIENT_URL`, `NODE_ENV=production`
+
+#### Frontend (e.g. Vercel / Netlify)
+- **Root Directory:** `frontend`
+- **Framework Preset:** `Vite`
+- **Build Command:** `npm run build`
+- **Output Directory:** `dist`
+- **Required Environment Variable:** `VITE_API_URL=https://<your-backend-url>/api`
+
 ## Seed Data
 
 The backend includes a seeding script that creates demo data and default users.

@@ -31,7 +31,9 @@ const RegisterPage = () => {
       toast.success('Account created! Welcome to ProjectPulse.');
       navigate('/dashboard');
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Registration failed');
+      console.error('Registration failed:', err);
+      const message = err.response?.data?.message || err.message || 'Registration failed';
+      toast.error(message);
     } finally {
       setLoading(false);
     }

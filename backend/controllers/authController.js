@@ -3,8 +3,12 @@ const Organization = require('../models/Organization');
 const jwt = require('jsonwebtoken');
 const { successResponse, errorResponse } = require('../utils/apiResponse');
 
+const getJwtSecret = () => {
+  return process.env.JWT_SECRET || 'projectpulse_jwt_secret_key_2024_super_secure';
+};
+
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+  return jwt.sign({ id }, getJwtSecret(), { expiresIn: '30d' });
 };
 
 exports.register = async (req, res, next) => {
@@ -38,6 +42,9 @@ exports.register = async (req, res, next) => {
 
     if (role === 'org_admin') {
       organization.owner = user._id;
+    }
+    if (!Array.isArray(organization.members)) {
+      organization.members = [];
     }
     organization.members.push({ user: user._id, role });
     await organization.save();
